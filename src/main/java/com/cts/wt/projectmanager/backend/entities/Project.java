@@ -1,12 +1,16 @@
 package com.cts.wt.projectmanager.backend.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -37,6 +41,8 @@ public class Project {
 	@Column
 	int priority;
 
+	
+	 
 	
 	/**
 	 * @return the projectId
@@ -107,7 +113,8 @@ public class Project {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	
+
+
 	
 	
 	

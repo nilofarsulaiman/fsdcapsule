@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.cts.wt.projectmanager.backend.entities.User;
-import com.cts.wt.projectmanager.backend.repos.TaskRepo;
+import com.cts.wt.projectmanager.backend.repos.UserRepo;
 import com.cts.wt.projectmanager.backend.repos.UserRepo;
 
 /**
- * Control for task operations.
+ * Control for User operations.
  * 
  * @author Nilofar Sulaiman
  *
@@ -28,10 +28,10 @@ public class UserController {
 
 	@Autowired
 	UserRepo userRepo;
-	TaskRepo taskRepo;
+	UserRepo UserRepo;
 
 	@PostMapping("/user")
-	public ResponseEntity<Void> addTask(@RequestBody User user) {
+	public ResponseEntity<Void> addUser(@RequestBody User user) {
 		userRepo.save(user);
 		ResponseEntity<Void> rs = new ResponseEntity<>(HttpStatus.CREATED);
 		return rs;
@@ -39,15 +39,23 @@ public class UserController {
 	}
 
 	@PutMapping("/user")
-	public ResponseEntity<Void> updateTask(@RequestBody User user) {
+	public ResponseEntity<Void> updateUser(@RequestBody User user) {
 		userRepo.save(user);
 		ResponseEntity<Void> rs = new ResponseEntity<>(HttpStatus.OK);
 		return rs;
 
 	}
 
+	
+	@PutMapping("/user/project")
+	public ResponseEntity<Void> updateUserProject(@RequestBody User user) {
+		userRepo.save(user);
+		ResponseEntity<Void> rs = new ResponseEntity<>(HttpStatus.OK);
+		return rs;
+
+	}
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<Void> deleteTask(@PathVariable("id") int id) {
+	public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
 		userRepo.deleteById(id);
 		ResponseEntity<Void> rs = new ResponseEntity<>(HttpStatus.OK);
 		return rs;
@@ -55,14 +63,21 @@ public class UserController {
 	}
 
 	@GetMapping("/user/{id}")
-	public User fetchTask(@PathVariable("id") int id) {
+	public User fetchUser(@PathVariable("id") int id) {
 		User user = userRepo.findById(id);
+		return user;
+
+	}
+	
+	@GetMapping("/userName/{name}")
+	public User filterManager(@PathVariable String name) {
+		User user = userRepo.findIdByName(name);
 		return user;
 
 	}
 
 	@GetMapping("/user")
-	public List<User> fetchAllTask() {
+	public List<User> fetchAllUser() {
 		List<User> user = userRepo.findAll();
 		return user;
 

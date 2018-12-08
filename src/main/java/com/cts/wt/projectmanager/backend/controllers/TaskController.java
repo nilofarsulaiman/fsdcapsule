@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.wt.projectmanager.backend.entities.ParentTask;
+import com.cts.wt.projectmanager.backend.entities.Project;
 import com.cts.wt.projectmanager.backend.entities.Task;
 import com.cts.wt.projectmanager.backend.repos.ParentTaskRepo;
 import com.cts.wt.projectmanager.backend.repos.TaskRepo;
@@ -39,16 +40,9 @@ public class TaskController {
 	TaskRepo taskRepo;
 
 	@PostMapping("/task")
-	public ResponseEntity<Void> addTask(@RequestBody Task task) {
-
-		System.out.println(task.getTask());
-		if (task.getParentTask().getId() != 0) {
-			ParentTask parentTask = parentTaskRepo.findById(task.getParentTask().getId());
-			task.setParentTask(parentTask);
-		}
+	public int addTask(@RequestBody Task task) {
 		taskRepo.save(task);
-		ResponseEntity<Void> rs = new ResponseEntity<>(HttpStatus.CREATED);
-		return rs;
+		return task.getTaskId();
 
 	}
 
@@ -71,6 +65,20 @@ public class TaskController {
 	@GetMapping("/task/{id}")
 	public Task fetchTask(@PathVariable("id") int id) {
 		Task task = taskRepo.findById(id);
+		return task;
+
+	}
+
+	@GetMapping("/tasks")
+	public List<Task> fetchCompletedProject() {
+		List<Task> task = taskRepo.findAllCompletedProject();
+		return task;
+
+	}
+
+	@GetMapping("/tasks/{projectId}")
+	public List<Task> fetchTaskByProject(@PathVariable("projectId") int projectId) {
+		List<Task> task = taskRepo.findTaskByProject(projectId);
 		return task;
 
 	}

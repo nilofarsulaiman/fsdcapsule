@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -36,9 +37,13 @@ public class Task {
 	private Date endDate;
 
 	int priority;
+	
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	ParentTask parentTask;
+
+	@Column
+    int projectId;
 
 	/**
 	 * @return the taskId
@@ -128,6 +133,17 @@ public class Task {
 	 */
 	public void setParentTask(ParentTask parentTask) {
 		this.parentTask = parentTask;
+	}
+	
+	
+
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 
 	/*

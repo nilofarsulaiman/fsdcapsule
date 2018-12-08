@@ -25,10 +25,10 @@ public class ParentTaskController {
 	ParentTaskRepo parentTaskRepo;
 
 	@PostMapping("/parentTask")
-	public ResponseEntity<Void> addParentTask(@RequestBody ParentTask parentTask) {
+	public int addParentTask(@RequestBody ParentTask parentTask) {
 		parentTaskRepo.save(parentTask);
 		ResponseEntity<Void> rs = new ResponseEntity<>(HttpStatus.CREATED);
-		return rs;
+		return parentTask.getId();
 
 	}
 
@@ -51,7 +51,6 @@ public class ParentTaskController {
 	@GetMapping("/parentTask/{id}")
 	public ParentTask fetchParentTask(@PathVariable("id") int id) {
 		ParentTask parentTask = parentTaskRepo.findById(id);
-		System.out.println(parentTask);
 		return parentTask;
 
 	}
@@ -59,7 +58,6 @@ public class ParentTaskController {
 	@GetMapping("/parentTask")
 	public List<ParentTask> fetchAllParentTask() {
 		List<ParentTask> parentTask = parentTaskRepo.findAll();
-		System.out.println(parentTask);
 		return parentTask;
 
 	}
