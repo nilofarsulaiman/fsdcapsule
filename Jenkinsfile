@@ -27,5 +27,5 @@ node {
     stage('Deploy') {
      
         }
-    }
+    
 }
